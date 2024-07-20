@@ -36,9 +36,10 @@ const NoteState = (props) => {
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5NzgwOTI0YTRmZTI0YTJhM2Y4ODQyIn0sImlhdCI6MTcyMTIwNDg4NX0.KR_JW_btqzK8RwpvFZm1PNBKFXj9QCdfhB-19Xv51xQ",
       },
-      body: JSON.straingify(title, description, tag),
+      body: JSON.stringify(title, description, tag),
     });
-    // const json = response.json();
+    const json =await response.json();
+    console.log(json)
 
     console.log("adding a new note");
     const note = {
@@ -54,11 +55,22 @@ const NoteState = (props) => {
     setNotes(notes.concat(note));
   };
   //Delete Note
-  const deleteNote = (id) => {
+  const deleteNote = async(id) => {
     //TODO:API call backend se v delete krna h
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "appliaction/json",
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5NzgwOTI0YTRmZTI0YTJhM2Y4ODQyIn0sImlhdCI6MTcyMTIwNDg4NX0.KR_JW_btqzK8RwpvFZm1PNBKFXj9QCdfhB-19Xv51xQ",
+      },
+    });
+    const json = await response.json();
+    console.log(json);
+
     console.log("Deleting the note with id " + id);
     const newNotes = notes.filter((note) => {
-      return note._id != id;
+      return note._id !== id;
     });
     setNotes(newNotes);
   };
@@ -67,18 +79,18 @@ const NoteState = (props) => {
   const editNote = async (id, title, description, tag) => {
     //API call
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "appliaction/json",
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5NzgwOTI0YTRmZTI0YTJhM2Y4ODQyIn0sImlhdCI6MTcyMTIwNDg4NX0.KR_JW_btqzK8RwpvFZm1PNBKFXj9QCdfhB-19Xv51xQ",
       },
-      body: JSON.straingify({ title, description, tag }),
+      body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
     console.log(json);
 
-    let newNotes = JSON.parse(JSON.straingify(notes));
+    let newNotes = JSON.parse(JSON.stringify(notes));
 
     //Logic to edit in client
     for (let index = 0; index < notes.length; index++) {

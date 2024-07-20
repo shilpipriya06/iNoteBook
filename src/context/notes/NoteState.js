@@ -1,4 +1,5 @@
 import  noteContext from './noteContext';
+import {useState} from 'react';
 
 const NoteState= (props)=>{
    const notesInitial=[
@@ -12,7 +13,7 @@ const NoteState= (props)=>{
       "__v": 0
     },
     {
-      "_id": "6698b20632e4dc6796206fa8",
+      "_id": "6698b20632e4dc6796206fa84",
       "user": "669780924a4fe24a2a3f8842",
       "title": "My Title",
       "description": "Please wake up early",
@@ -21,7 +22,7 @@ const NoteState= (props)=>{
       "__v": 0
     },
     {
-      "_id": "6698b20632e4dc6796206fa8",
+      "_id": "6698b20632e4dc67963206fa8",
       "user": "669780924a4fe24a2a3f8842",
       "title": "My Title",
       "description": "Please wake up early",
@@ -30,7 +31,7 @@ const NoteState= (props)=>{
       "__v": 0
     },
     {
-      "_id": "6698b20632e4dc6796206fa8",
+      "_id": "6698b20632e4dc67962076fa8",
       "user": "669780924a4fe24a2a3f8842",
       "title": "My Title",
       "description": "Please wake up early",
@@ -39,7 +40,7 @@ const NoteState= (props)=>{
       "__v": 0
     },
     {
-      "_id": "6698b20632e4dc6796206fa8",
+      "_id": "6698b20632e54dc67962076fa8",
       "user": "669780924a4fe24a2a3f8842",
       "title": "My Title",
       "description": "Please wake up early",

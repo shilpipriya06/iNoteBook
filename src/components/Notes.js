@@ -62,7 +62,7 @@ const onChange = (e)=>{
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-etitle" id="exampleModalLabel">
+              <h5 className="modal-title" id="exampleModalLabel">
                 Edit Note
               </h5>
               <button
@@ -74,9 +74,9 @@ const onChange = (e)=>{
 
             </div>
             <div className="modal-body">
-              <form className="my-3">
+              <form>
                 <div className="mb-3">
-                  <label htmlFor="etitle" className="form-label">
+                  <label htmlFor="title" className="form-label">
                     Title
                   </label>
                   <input
@@ -92,7 +92,7 @@ const onChange = (e)=>{
                   </div>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="edescription" className="form-label">
+                  <label htmlFor="description" className="form-label">
                     Description
                   </label>
                   <input
@@ -105,7 +105,7 @@ const onChange = (e)=>{
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="etag" className="form-label">
+                  <label htmlFor="tag" className="form-label">
                     Tag
                   </label>
                   <input
@@ -140,7 +140,7 @@ const onChange = (e)=>{
       <div className="row my-3">
         <h2>Your Notes</h2>
         <div className="container mx-2">
-        {notes.length===0 &&'No notes to dispaly'}
+        <h4>{notes.length===0 &&'No notes to dispaly'}</h4>
         </div>
         {notes.map((note) => {
           return 

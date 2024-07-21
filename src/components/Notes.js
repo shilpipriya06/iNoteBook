@@ -2,12 +2,22 @@ import React, { useContext, useEffect, useRef,useState } from "react";
 import noteContext from "../context/notes/noteContext";
 import Noteitem from "./Noteitem";
 import AddNote from "./AddNote";
+import { useNavigate } from "react-router-dom";
 
-const Notes = () => {
+function Notes(props){
   const context = useContext(noteContext);
+  let history = useNavigate();
+
+
   const { notes, getNotes,editNote } = context;
   useEffect(() => {
+    if(localStorage.getItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5NzgwOTI0YTRmZTI0YTJhM2Y4ODQyIn0sImlhdCI6MTcyMTIwNDg4NX0.KR_JW_btqzK8RwpvFZm1PNBKFXj9QCdfhB-19Xv51xQ'))
     getNotes();
+  
+  else{
+    history('/login');
+  }
+  //eslient-disable-next-line
   }, []);
   
   const ref = useRef(null);
@@ -20,9 +30,9 @@ const Notes = () => {
   }
   
   const handleClick =(e)=>{
-    console.log("Updating the note....." ,note);
     editNote(note.id,note.etitle,note.edescription,note.etag)
     refClose.current.click();
+    props.showAlert("Updated Successfully","success");
 }
 const onChange = (e)=>{
     setNote({...note, [e.target.name]: e.target.value})
@@ -30,6 +40,7 @@ const onChange = (e)=>{
 }
   return (
     <>
+    <AddNote showAlert={props.showAlert}/>
       <AddNote />
       <button
         ref={ref}
@@ -75,10 +86,9 @@ const onChange = (e)=>{
                     name="etitle"
                     value={note.etitle}
                     aria-describedby="emailHelp"
-                    onChange={onChange}
+                    onChange={onChange} minLength={5} required
                   />
                   <div id="emailHelp" className="form-text">
-                    We'll never share your email with anyone else.
                   </div>
                 </div>
                 <div className="mb-3">
@@ -91,7 +101,7 @@ const onChange = (e)=>{
                     id="edescription"
                     name="edescription"
                     value={note.edescription}
-                    onChange={onChange}
+                    onChange={onChange} minLength={5} required
                   />
                 </div>
                 <div className="mb-3">
@@ -104,7 +114,7 @@ const onChange = (e)=>{
                     id="etag"
                     name="etag"
                     value={note.etag}
-                    onChange={onChange}
+                    onChange={onChange} 
                   />
                 </div>
 
@@ -120,7 +130,7 @@ const onChange = (e)=>{
               >
                 Close
               </button>
-              <button onClick={handleClick} type="button" className="btn btn-primary">
+              <button disabled={note.etitle.length<5 || note.edescription.length<5 } onClick={handleClick} type="button" className="btn btn-primary">
                 Update Note
               </button>
             </div>
@@ -129,10 +139,13 @@ const onChange = (e)=>{
       </div>
       <div className="row my-3">
         <h2>Your Notes</h2>
+        <div className="container mx-2">
+        {notes.length===0 &&'No notes to dispaly'}
+        </div>
         {notes.map((note) => {
-          return (
-            <Noteitem key={note._id} updateNote={updateNote} note={note} />
-          );
+          return 
+            <Noteitem key={note._id} updateNote={updateNote} showAlert={props.showAlert} note={note} />
+          
         })}
       </div>
     </>

@@ -9,7 +9,7 @@ const Signup = (props) => {
     const handleSubmit=async(e)=>{
         e.preventDefault();
         const{name,email,password}=credentials;
-        const response = await fetch("http://localhost:5000/api/auth/login",{
+        const response = await fetch("http://localhost:5000/api/auth/createuser",{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const Signup = (props) => {
         console.log(json);
         if (json.success){
             //save the auth token and redirct
-            localStorage.setItem('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjY5NzgwOTI0YTRmZTI0YTJhM2Y4ODQyIn0sImlhdCI6MTcyMTIwNDg4NX0.KR_JW_btqzK8RwpvFZm1PNBKFXj9QCdfhB-19Xv51xQ');
+            localStorage.setItem('token', json.authtoken);
             history("/");
             props.showAlert("Account created successfully.", "success");
         }
